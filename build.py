@@ -467,6 +467,7 @@ def index_body():
 <section class="card"><h2>🏅 Badges</h2><div class="badges" id="badges"></div></section>
 <section class="card teacher"><h2>👩‍🏫 For teachers · O'qituvchilar uchun</h2>
 <p>🎮 <a href="quiz.html"><b>Classroom quiz</b></a> — Kahoot-style team game for the projector: choose units, teams and time.</p>
+<p>🎯 <b>Live quiz</b> — the real thing on students' phones (PIN, nicknames, speed scoring, podium), served from your own computer: run <code>py live.py</code>. See the README.</p>
 <p>🖨 <b>Printable worksheets</b> with reading and answer key — Unit: {sheets}</p>
 <p>📥 <b>Kahoot / Quizizz files</b> — each unit's 16 test questions as a spreadsheet to import.</p>
 <div class="actions"><select id="xl-unit" aria-label="Unit">{opts}</select>
