@@ -46,18 +46,18 @@ Format `units_a.py`, `readings_a.py` va `review_items.py` fayllarining boshidagi
 ## Testlar
 
 ```
-pip install -r requirements.txt pytest
-python -m pytest a2-english-learning-resources/tests
+pip install -r requirements-dev.txt
+python -m pytest
 ```
 
-Testlar manbalar nusxasida `build.py` ni ishga tushiradi va tekshiradi: kontent qoidalari o'tadimi, repodagi `html/` yangi qurilgan natijaga aynan mosmi (ya'ni manbani o'zgartirib qayta qurishni unutmaganmisiz), har bir Kahoot/Quizizz fayli `xlsx-files.json` da bormi. GitHub Actions da bu `.github/workflows/a2-english-learning-resources.yml` orqali Linux, Windows va macOS da, Python 3.12 va 3.13 bilan ishlaydi.
+Testlar manbalar nusxasida `build.py` ni ishga tushiradi va tekshiradi: kontent qoidalari o'tadimi, repodagi `html/` yangi qurilgan natijaga aynan mosmi (ya'ni manbani o'zgartirib qayta qurishni unutmaganmisiz), har bir Kahoot/Quizizz fayli `xlsx-files.json` da bormi. GitHub Actions da bu `.github/workflows/ci.yml` orqali Linux, Windows va macOS da, Python 3.12 va 3.13 bilan ishlaydi.
 
 ## Google Drive dan ko'chirish haqida
 
-Manba: Google Drive, `Turbo english/destination-a2` papkasi. Ko'chirishda:
+Manba: Google Drive, `Turbo english/destination-a2` papkasi. Avval `mannod0327-oss/mannod0327-oss` repodagi `claude/stoic-einstein-93dzd1` branchiga qo'yilgan (commit `2839f9a`), keyin shu alohida repoga ajratilgan; birinchi commit shu tarixdan olingan. Ko'chirishda:
 
 - Hamma manba fayllar bayt-ma'nosida Drive dagi fayl hajmiga teng. Manbalardan qayta qurilgan 104 ta HTML va `artifact-home.html` Drive dagi nusxalar bilan aynan bir xil (qator oxiri farqidan tashqari). Kahoot/Quizizz jadvallari (86 fayl) hujayra-hujayra teng.
 - **Kiritilmadi:** `__pycache__/` (kompilyatsiya keshi) va Drive dagi `html.zip`. U eski snapshot (29-sentabr): ichida `placement.html` va `mistakes.html` yo'q, barcha 102 sahifasi hozirgi versiyadan farq qiladi. U Drive da qoladi; yangi arxiv kerak bo'lsa `html/` dan qayta zip qilinadi.
-- **Bitta o'zgartirish:** `build.py` endi `xlsx-files.json` oxiriga yangi qator qo'shadi (repo CI `scripts/validate_plugin.py` shuni talab qiladi). JSON mazmuni o'zgarmagan.
+- **Bitta o'zgartirish:** `build.py` endi `xlsx-files.json` oxiriga yangi qator qo'shadi (ko'chirish paytida profil reponing CI qoidasi shuni talab qilgan; oddiy matn fayl uchun ham to'g'ri format). JSON mazmuni o'zgarmagan.
 - **Qator oxirlari:** Drive dagi HTML lar Windows da qurilgani uchun CRLF bilan edi. Repoda `.gitattributes` (`eol=lf`) tufayli hammasi LF da saqlanadi; brauzerda farq sezilmaydi.
 - **Binar fayllar:** `.xlsx` va `.zip` har qurilganda ichidagi vaqt tamg'asi sabab bayt jihatdan o'zgaradi (mazmuni bir xil). Ularni faqat savollar o'zgarganda commit qiling.
