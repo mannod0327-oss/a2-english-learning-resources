@@ -474,7 +474,8 @@ def index_body():
 <a class="dl btnlink" data-dir="quizizz" href="quizizz/unit-01.xlsx" download>Quizizz (.xlsx)</a></div>
 <div class="actions"><a class="dl btnlink ghost" href="kahoot-all-units.zip" download>All units for Kahoot (.zip)</a>
 <a class="dl btnlink ghost" href="quizizz-all-units.zip" download>All units for Quizizz (.zip)</a><span class="fb" id="dl-msg"></span></div>
-<p class="inst">Kahoot: Create → Add question → Import spreadsheet. Quizizz / Wayground: Create → Assessment → Import from spreadsheet.</p></section>
+<p class="inst">Kahoot: Create → Add question → Import → Import spreadsheet, then upload the .xlsx. Quizizz / Wayground: Create → Assessment → Import from spreadsheet.</p>
+<p class="inst">The .xlsx files are in the kahoot/ and quizizz/ folders next to this page. If you opened this page on its own (for example from Telegram), the buttons cannot find them: download the whole html folder first.</p></section>
 {"".join(blocks)}
 <footer>Progress is saved in this browser only. <button class="ghost" id="reset">Reset my progress</button><br>
 Original practice material for A2 learners, organised by the units of the book. Not copied from the coursebook.</footer>"""
