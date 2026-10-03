@@ -16,6 +16,7 @@ import os
 import random
 import secrets
 import socket
+import socketserver
 import sys
 import threading
 import time
@@ -517,6 +518,13 @@ class Server(ThreadingHTTPServer):
     daemon_threads = True
     allow_reuse_address = os.name != "nt"      # on Windows this flag would let a second copy share the port
     request_queue_size = 128
+
+    def server_bind(self):
+        """HTTPServer.server_bind looks the address up in DNS (socket.getfqdn): seconds of nothing on
+        some networks, and pointless here. Bind, and take the names as they are."""
+        socketserver.TCPServer.server_bind(self)
+        host, port = self.server_address[:2]
+        self.server_name, self.server_port = host, port
 
     def handle_error(self, request, client_address):
         """Phones drop off Wi-Fi all the time: a vanished connection is not worth a traceback."""

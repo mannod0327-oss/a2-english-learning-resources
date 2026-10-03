@@ -622,6 +622,7 @@ def test_live_py_starts_from_the_command_line_and_serves_the_site(tmp_path):
     import queue
     import re
     import subprocess
+    import time
     import urllib.request
 
     env = {**os.environ, "PYTHONUNBUFFERED": "1", "PYTHONIOENCODING": "utf-8", "PYTHONDONTWRITEBYTECODE": "1"}
@@ -631,18 +632,22 @@ def test_live_py_starts_from_the_command_line_and_serves_the_site(tmp_path):
     )
     lines = queue.Queue()
     threading.Thread(target=lambda: [lines.put(line) for line in proc.stdout], daemon=True).start()
+    output = []
     try:
         port = None
-        for _ in range(200):
+        deadline = time.monotonic() + 90
+        while port is None and time.monotonic() < deadline:
             try:
-                line = lines.get(timeout=30)
+                line = lines.get(timeout=1)
             except queue.Empty:
-                break
+                if proc.poll() is not None:          # it died: no point waiting for a banner
+                    break
+                continue
+            output.append(line)
             found = re.search(r"http://localhost:(\d+)/live/host\.html", line)
             if found:
                 port = int(found.group(1))
-                break
-        assert port, "the startup banner never appeared"
+        assert port, "the startup banner never appeared (exit code %s):\n%s" % (proc.poll(), "".join(output))
         with urllib.request.urlopen(f"http://127.0.0.1:{port}/api/info", timeout=10) as resp:
             info = json.load(resp)
         assert len(info["units"]) == 42 and info["port"] == port
